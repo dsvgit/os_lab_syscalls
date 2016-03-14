@@ -1,7 +1,4 @@
 #include <linux/module.h>
-#include <linux/init.h>
-#include <linux/kernel.h>
-#include <linux/version.h>
 
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("Sergey Dedkov dsv.mail@yandex.ru");
