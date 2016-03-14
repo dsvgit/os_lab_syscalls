@@ -1,1 +1,0 @@
-cmd_/home/dsv/projects/scalls/os_lab_syscalls/kernel_module_ex1/module_ex1.ko := ld -r -m elf_x86_64 -T ./scripts/module-common.lds --build-id  -o /home/dsv/projects/scalls/os_lab_syscalls/kernel_module_ex1/module_ex1.ko /home/dsv/projects/scalls/os_lab_syscalls/kernel_module_ex1/module_ex1.o /home/dsv/projects/scalls/os_lab_syscalls/kernel_module_ex1/module_ex1.mod.o
