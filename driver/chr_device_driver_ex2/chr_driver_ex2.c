@@ -89,26 +89,26 @@ static int dev_release(struct inode *i, struct file *f)
 static ssize_t dev_read(struct file *f, char __user *buffer, size_t len, loff_t *offset)
 {
 	int error_count = 0;
-	int size = size_of_message;
-
+	int size = 0;
+	// copy_to_user has the format ( * to, *from, size) and returns 0 on success
 	error_count = copy_to_user(buffer, message, size_of_message);
 
-	if (error_count != 0)
-	{
+	if (error_count != 0) {            // if true then have success
 		printk(KERN_INFO "Failed to send %d characters to the user\n", error_count);
-		return -EFAULT;
+		return -EFAULT;              // Failed -- return a bad address message (i.e. -14)
 	}
-
-	printk(KERN_INFO "Sent %d characters to the user, buffer: %s, message: %s \n", size_of_message, buffer, message);
+	
+	printk(KERN_INFO "Sent %d characters to the user\n", size_of_message);
+	size = size_of_message;
 	size_of_message = 0;
-	return size;
+	return size;  // clear the position to the start and return 0
 }
 
 static ssize_t dev_write(struct file *f, const char __user *buffer, size_t len, loff_t *offset)
 {
-	sprintf(message, "%s(%d letters)\n", buffer, (int)len);   // appending received string with its length
+	sprintf(message, "%s(%d letters) \n", buffer, (int)len);   // appending received string with its length
 	size_of_message = strlen(message);                 // store the length of the stored message
-	printk(KERN_INFO "Received %d characters from the user, message: %s \n", (int)len, message);
+	printk(KERN_INFO "Received %d characters from the user\n", (int)len);
 	return len;
 }
 
